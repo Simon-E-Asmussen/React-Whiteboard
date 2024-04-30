@@ -1,6 +1,7 @@
 const express = require('express');
 const http = require('http');
 const socketIo = require('socket.io');
+const path = require('path'); // Import path module
 
 const app = express();
 const server = http.createServer(app);
@@ -20,6 +21,14 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log('A user disconnected');
   });
+});
+
+// Serve static files from the 'build' directory
+app.use(express.static(path.join(__dirname, 'build')));
+
+// Serve the main HTML file for all routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname,'..',  '..','public', 'index.html'));
 });
 
 server.listen(PORT, () => {
