@@ -1,12 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import io from 'socket.io-client';
 
-//Function container for Writeable Text Field to be used in React calls.
+const socket = io('http://localhost:3000'); // Replace with your server URL
 
 const WriteableTextField = ({ initialValue }) => {
   const [value, setValue] = useState(initialValue || '');
 
+  useEffect(() => {
+    // Listener for changes from other users
+    socket.on('textChange', (newValue) => {
+      setValue(newValue);
+    });
+
+    return () => {
+      socket.off('textChange');
+    };
+  }, []);
+
   const handleChange = (e) => {
-    setValue(e.target.value);
+    const newValue = e.target.value;
+    setValue(newValue);
+    // Emit the new value to the server
+    socket.emit('textChange', newValue);
   };
 
   return (
