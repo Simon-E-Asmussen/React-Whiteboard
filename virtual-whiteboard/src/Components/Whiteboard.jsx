@@ -7,10 +7,13 @@ import WriteableTextField from './Writeable';
 const Whiteboard = () => {
   return (
     <div>
-      <ReadOnlyTextField value="Read-only text" />
+      
       <WriteableTextField initialValue="Writeable text" />
     </div>
   );
 };
 
 export default Whiteboard;
+
+
+// Hold this: <ReadOnlyTextField value="Read-only text" />
