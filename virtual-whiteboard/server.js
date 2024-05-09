@@ -2,6 +2,8 @@ const express = require('express');
 const http = require('http');
 const socketIo = require('socket.io');
 const path = require('path'); // Import path module
+const mongoose = require('mongoose');
+const { log } = require('console');
 
 const app = express();
 const server = http.createServer(app);
@@ -28,7 +30,28 @@ app.use(express.static(path.join(__dirname, 'build')));
 
 // Serve the main HTML file for all routes
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname,'..',  '..','public', 'index.html'));
+  res.sendFile(path.join(__dirname,'public', 'index.html'));
+});
+
+//connect to mongodb
+mongoose.connect('mongodb://localhost:27017/Whiteboard');
+
+// Create a mongoose schema and model for the documents collection
+const documentSchema = new mongoose.Schema({
+  title: String,
+  content: String
+});
+const Documents = mongoose.model('Document', documentSchema, 'Documents');
+
+// create GET endpoint
+app.get('/', async(req, res) => {
+  try{
+    const entries = await Documents.find({title: "Notes 1"});
+    console.log(entries);
+    res.json(entries);
+  } catch(error){
+    res.status(500).json({ error: error.message });
+  }
 });
 
 server.listen(PORT, () => {
