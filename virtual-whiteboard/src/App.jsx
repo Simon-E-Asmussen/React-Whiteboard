@@ -4,6 +4,8 @@ import './App.css';
 import ReactDOM from 'react-dom';
 import Whiteboard from './Components/Whiteboard.jsx';
 
+
+
 function App() {
   const handleOpenEditor = () => {
     // Open editor.html in a new tab or window
