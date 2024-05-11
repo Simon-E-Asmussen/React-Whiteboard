@@ -46,8 +46,8 @@ const Documents = mongoose.model('Documents', documentSchema, 'Documents');
 // Create a GET endpoint to fetch all documents
 app.get('/documents', async(req, res) => {
   try {
-    const entries = await Documents.find();
-    console.log(entries);
+    const entries = await Documents.find({ title: 'Notes 1' });
+    console.log(entries.content);
     res.json(entries);
   } catch(error) {
     res.status(500).json({ error: error.message });
@@ -73,6 +73,8 @@ app.post('/createDocument', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
+
 
 // Serve the main HTML file for all routes
 app.get('*', (req, res) => {
