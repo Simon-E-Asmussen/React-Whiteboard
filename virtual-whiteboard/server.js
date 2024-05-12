@@ -74,6 +74,8 @@ app.post('/createDocument', async (req, res) => {
   }
 });
 
+const fluffy = new Documents({ title: 'fluffy', content: 'Derp test' });
+fluffy.save();
 
 
 // Serve the main HTML file for all routes
