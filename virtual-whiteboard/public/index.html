@@ -35,13 +35,23 @@
     <title>Home Page</title>
 </head>
 <body>
+  <div id="root">
     <h1 id="headerone">Welcome to the Home Page</h1>
     <button onclick="openWhiteboard()">Open Whiteboard</button>
-
+</div>
     <script>
         function openWhiteboard() {
             // Replace 'index.html' with the path to your whiteboard index.html file
-            window.location.href = './editor.html';
+          document.addEventListener("DOMContentLoaded", function() {
+          fetch("/triggerFunction")
+              .then(response => {
+                  if (!response.ok) {
+                      throw new Error('Network response was not ok');
+                  }
+                  console.log("GET request successfully sent");
+              })
+              .catch(error => console.error('Error:', error));
+      });
         }
     </script>
 </body>

@@ -1,22 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
-  import React from 'react';
-import ReactDOM from 'react-dom';
-import Whiteboard from './Components/Whiteboard.jsx';
+import React, { useState } from 'react';
 import RootRenderer from './Components/RootRenderer.jsx';
 
-
-
 function App() {
-  const currentURL = window.location.pathname;
+  const [isWhiteboardOpen, setIsWhiteboardOpen] = useState(false);
 
+  const openWhiteboard = () => {
+    setIsWhiteboardOpen(true);
+  };
 
-  const headerone = ReactDOM.createRoot(document.getElementById('headerone'));
-  
-  if (currentURL === '/editor'){
-    <RootRenderer/>
-
-  }
+  return (
+    <div id="root">
+      <h1 id="headerone">Welcome to the Home Page</h1>
+      {!isWhiteboardOpen && (
+        <button onClick={openWhiteboard}>Open Whiteboard</button>
+      )}
+      {isWhiteboardOpen && <RootRenderer />}
+    </div>
+  );
 }
 
 export default App;
