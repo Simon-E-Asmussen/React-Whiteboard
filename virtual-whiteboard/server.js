@@ -54,12 +54,16 @@ const documentSchema = new mongoose.Schema({
 });
 const Documents = mongoose.model('Documents', documentSchema, 'Documents');
 
-// Create a GET endpoint to fetch all documents
-app.get('/documents', async(req, res) => {
+// Create a GET endpoint to fetch a specific document
+app.get('/getDocument', async(req, res) => {
   try {
-    const entries = await Documents.find({ title: 'Notes 1' });
-    console.log(entries.content);
-    res.json(entries);
+    const document = await Documents.findOne({ title: 'Notes 1' });
+    if (!document) {
+      return res.status(404).json({ error: "Document not found" });
+    }
+    const content = document.content;
+    console.log(content);
+    res.send(content); // Sending content directly as response
   } catch(error) {
     res.status(500).json({ error: error.message });
   }
