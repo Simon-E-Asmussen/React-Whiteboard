@@ -85,6 +85,20 @@ app.post('/createDocument', async (req, res) => {
   }
 });
 
+// Route to handle updating document
+app.put('/updateDocument', async (req, res) => {
+  const { title, content } = req.body;
+
+  try {
+    // Find and update document with the provided title
+    const updatedDocument = await Documents.findOneAndUpdate({ title }, { content }, { new: true });
+    res.json(updatedDocument);
+  } catch (error) {
+    console.error('Error updating document:', error);
+    res.status(500).json({ error: 'Error updating document' });
+  }
+});
+
 // Serve the main HTML file for all routes
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname,'public', 'index.html'));
