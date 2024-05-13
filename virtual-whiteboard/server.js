@@ -1,7 +1,7 @@
 const express = require('express');
 const http = require('http');
 const socketIo = require('socket.io');
-const path = require('path'); // Import path module
+const path = require('path');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
@@ -23,6 +23,13 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log('A user disconnected');
   });
+});
+
+// Define the endpoint to trigger the function
+app.get('/triggerFunction', (req, res) => {
+  // Emit a socket event to all connected clients
+  io.emit('triggerFunction');
+  res.sendStatus(200);
 });
 
 // Serve static files from the 'build' directory

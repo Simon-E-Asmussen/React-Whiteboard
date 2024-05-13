@@ -1,21 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
-  import React from 'react';
-import ReactDOM from 'react-dom';
-import Whiteboard from './Components/Whiteboard.jsx';
-
-
+import React, { useState } from 'react';
+import RootRenderer from './Components/RootRenderer.jsx';
 
 function App() {
-  const handleOpenEditor = () => {
-    // Open editor.html in a new tab or window
-    window.open('./editor.html', '_blank');
+  const [isWhiteboardOpen, setIsWhiteboardOpen] = useState(false);
+
+  const openWhiteboard = () => {
+    setIsWhiteboardOpen(true);
   };
 
   return (
-    <div>
-      {/* Button to open the editor.html document */}
-      <button onClick={handleOpenEditor}>Open Editor</button>
+    <div id="root">
+      <h1 id="headerone">Welcome to the Home Page</h1>
+      {!isWhiteboardOpen && (
+        <button onClick={openWhiteboard}>Open Whiteboard</button>
+      )}
+      {isWhiteboardOpen && <RootRenderer />}
     </div>
   );
 }
