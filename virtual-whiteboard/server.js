@@ -73,7 +73,7 @@ app.post('/createDocument', async (req, res) => {
     const { title, content } = req.body;
 
     // Create new document
-    const newDocument = new Documents({ title: 'fluffy', content: 'Derp test' });
+    const newDocument = new Documents({ title: 'Notes 1', content: '' });
     await newDocument.save();
 
     // Send success response

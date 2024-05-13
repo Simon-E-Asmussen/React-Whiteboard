@@ -3,7 +3,7 @@ import io from 'socket.io-client';
 
 const socket = io('http://localhost:3000'); // Replace with your server URL
 
-const WriteableTextField = ({ initialValue }) => {
+const WriteableTextField = ({ initialValue, onTextChange }) => {
   const [value, setValue] = useState(initialValue || '');
 
   useEffect(() => {
@@ -22,6 +22,8 @@ const WriteableTextField = ({ initialValue }) => {
     setValue(newValue);
     // Emit the new value to the server
     socket.emit('textChange', newValue);
+    // Pass the new value to the parent component
+    onTextChange(newValue);
   };
 
   return (

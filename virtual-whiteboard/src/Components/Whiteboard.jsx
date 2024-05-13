@@ -9,7 +9,7 @@ const Whiteboard = () => {
   return (
     <div>
       
-      <WriteableTextField initialValue="Writeable text" />
+      
       <UpdateDocumentComponent/>
     </div>
   );
@@ -17,5 +17,5 @@ const Whiteboard = () => {
 
 export default Whiteboard;
 
-
+// Hold this part 2: <WriteableTextField initialValue="Writeable text" />
 // Hold this: <ReadOnlyTextField value="Read-only text" />
