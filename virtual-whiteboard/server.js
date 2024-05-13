@@ -17,10 +17,8 @@ io.on('connection', (socket) => {
 
 // Handle text change events
 socket.on('textChange', (newValue) => {
-  console.log('value:', newValue);
   // Sanitize the input using express-validator
   body('newValue').trim().escape()(newValue, '', () => {
-    console.log('Sanitized value:', newValue); // Log the sanitized value
     // Broadcast the sanitized new value to all connected clients except the sender
     socket.broadcast.emit('textChange', newValue);
   });
