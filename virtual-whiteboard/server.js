@@ -4,6 +4,7 @@ const socketIo = require('socket.io');
 const path = require('path'); // Import path module
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const { validationResult, body } = require('express-validator');
 
 const app = express();
 const server = http.createServer(app);
@@ -14,11 +15,16 @@ const PORT = process.env.PORT || 3000;
 io.on('connection', (socket) => {
   console.log('A user connected');
 
-  // Handle text change events
-  socket.on('textChange', (newValue) => {
-    // Broadcast the new value to all connected clients except the sender
+// Handle text change events
+socket.on('textChange', (newValue) => {
+  console.log('value:', newValue);
+  // Sanitize the input using express-validator
+  body('newValue').trim().escape()(newValue, '', () => {
+    console.log('Sanitized value:', newValue); // Log the sanitized value
+    // Broadcast the sanitized new value to all connected clients except the sender
     socket.broadcast.emit('textChange', newValue);
   });
+});
 
   socket.on('disconnect', () => {
     console.log('A user disconnected');
@@ -62,7 +68,7 @@ app.post('/createDocument', async (req, res) => {
     const { title, content } = req.body;
 
     // Create new document
-    const newDocument = new Documents({ title, content });
+    const newDocument = new Documents({ title: 'fluffy', content: 'Derp test' });
     await newDocument.save();
 
     // Send success response
@@ -73,10 +79,6 @@ app.post('/createDocument', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
-
-const fluffy = new Documents({ title: 'fluffy', content: 'Derp test' });
-fluffy.save();
-
 
 // Serve the main HTML file for all routes
 app.get('*', (req, res) => {
