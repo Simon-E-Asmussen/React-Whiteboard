@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios'; // Assuming you're using axios for HTTP requests
-import WriteableTextField from './Writeable'; // Import the WriteableTextField component
+import axios from 'axios';
+import WriteableTextField from './Writeable';
 
 const UpdateDocumentComponent = () => {
   const [value, setValue] = useState('');
@@ -9,9 +9,9 @@ const UpdateDocumentComponent = () => {
     setValue(newValue);
   };
 
+  // Send value from WriteableTextField to backend server to update MongoDB document
   const handleClick = async () => {
     try {
-      // Send value from WriteableTextField to backend server to update MongoDB document
       await axios.put('/updateDocument', {
         title: 'Notes 1',
         content: value
@@ -24,7 +24,6 @@ const UpdateDocumentComponent = () => {
 
   return (
     <div>
-      {/* Pass handleTextChange function as a prop to WriteableTextField */}
       <WriteableTextField initialValue={value} onTextChange={handleTextChange} />
       <button onClick={handleClick}>Update Document</button>
     </div>

@@ -3,13 +3,9 @@ import ReadOnlyTextField from './ReadOnly';
 import WriteableTextField from './Writeable';
 import UpdateDocumentComponent from './SaveContent';
 
-//Function container for using both ReadOnly and Writeable functions in single react call.
-
 const Whiteboard = () => {
   return (
     <div>
-      
-      
       <UpdateDocumentComponent/>
     </div>
   );

@@ -47,14 +47,14 @@ mongoose.connect('mongodb://localhost:27017/Whiteboard')
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error('MongoDB connection error:', err));
 
-// Define a mongoose schema and model for the documents collection
+// Define a mongoose schema and model for the Documents collection
 const documentSchema = new mongoose.Schema({
   title: String,
   content: String
 });
 const Documents = mongoose.model('Documents', documentSchema, 'Documents');
 
-// Create a GET endpoint to fetch a specific document
+// Create a GET endpoint to fetch a specific document with title Notes 1
 app.get('/getDocument', async(req, res) => {
   try {
     const document = await Documents.findOne({ title: 'Notes 1' });
@@ -63,7 +63,7 @@ app.get('/getDocument', async(req, res) => {
     }
     const content = document.content;
     console.log(content);
-    res.send(content); // Sending content directly as response
+    res.send(content); 
   } catch(error) {
     res.status(500).json({ error: error.message });
   }
@@ -77,7 +77,7 @@ app.post('/createDocument', async (req, res) => {
     const { title, content } = req.body;
 
     // Create new document
-    const newDocument = new Documents({ title: 'Notes 1', content: '' });
+    const newDocument = new Documents({ title: 'Notes 3', content: 'derp' });
     await newDocument.save();
 
     // Send success response

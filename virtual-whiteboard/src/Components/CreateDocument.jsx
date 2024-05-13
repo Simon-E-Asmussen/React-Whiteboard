@@ -10,14 +10,12 @@ function DocumentCreator() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ title: title, content: '' }) // Use the title state variable
+        body: JSON.stringify({ title: title, content: '' })
       });
       const data = await response.json();
       console.log(data);
-      // You can handle the response here, e.g., show a success message or update state
     } catch (error) {
       console.error('Error creating document:', error);
-      // Handle error
     }
   };
 
