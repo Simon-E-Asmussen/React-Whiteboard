@@ -7,6 +7,23 @@ const WriteableTextField = ({ initialValue, onTextChange }) => {
   const [value, setValue] = useState(initialValue || '');
 
   useEffect(() => {
+    // Fetch initial value from the server
+    fetch('/getDocument')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch initial value');
+        }
+        return response.text(); // Assuming the response is a plain text
+      })
+      .then(initialValue => {
+        setValue(initialValue);
+        // Emit the initial value to the server
+        socket.emit('textChange', initialValue);
+        // Pass the initial value to the parent component
+        onTextChange(initialValue);
+      })
+      .catch(error => console.error(error));
+
     // Listener for changes from other users
     socket.on('textChange', (newValue) => {
       setValue(newValue);
