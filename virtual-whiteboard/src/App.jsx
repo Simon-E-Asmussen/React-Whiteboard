@@ -3,21 +3,20 @@ import './App.css';
   import React from 'react';
 import ReactDOM from 'react-dom';
 import Whiteboard from './Components/Whiteboard.jsx';
+import RootRenderer from './Components/RootRenderer.jsx';
 
 
 
 function App() {
-  const handleOpenEditor = () => {
-    // Open editor.html in a new tab or window
-    window.open('./editor.html', '_blank');
-  };
+  const currentURL = window.location.pathname;
 
-  return (
-    <div>
-      {/* Button to open the editor.html document */}
-      <button onClick={handleOpenEditor}>Open Editor</button>
-    </div>
-  );
+
+  const headerone = ReactDOM.createRoot(document.getElementById('headerone'));
+  
+  if (currentURL === '/editor'){
+    <RootRenderer/>
+
+  }
 }
 
 export default App;
