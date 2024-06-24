@@ -1,0 +1,3 @@
+MongoDB:
+We used a Data base called Whiteboard, with a collection called "Documents" with a document that needs the title "Notes 1"
+The content of our collection is in the Whiteboard.Documents.json file.
